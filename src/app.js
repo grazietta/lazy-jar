@@ -19,6 +19,7 @@ const {
 } = config;
 
 const redirect_uri = `${host}:${port}/oauth/redirect`;
+const errorCodesMap = require('./errorCodes');
 const parser = require('./parser/index');
 const createAction = require('./actions/index');
 const reduce = require('./reducers/index');
@@ -98,7 +99,7 @@ app.post('/api/command', (req, res) => {
   respond(req.body)
     .then(() => res.send('Success!'))
     .catch(err => {
-      res.send('Something is wrong, please try again later');
+      res.send('Something went wrong, please try again later');
       console.log(err);
     });
 });
@@ -109,12 +110,23 @@ async function respond({ team_id, user_id, text, channel_id }) {
   const secret = await getSecret({ team_id });
   const token = secret.bot.bot_access_token;
 
-  const command = parser(text);
+  try {
+    const command = parser(text);
+  } catch(err) {
+    sendMessage(channel_id, token, errorCodesMap.get(err.code))
+    winston.error(`Error: '${err.code} ${err.message}`)
+  }
+
   if (command.type === 'STATUS') {
     const statusMap = await status(team_id);
     await sendMessage(channel_id, token, JSON.stringify(statusMap));
   } else {
-    await executeCommand({ team_id, user_id, command, token });
+    try {
+      await executeCommand({ team_id, user_id, command, token });
+    } catch(err) {
+      sendMessage(channel_id, token, errorCodesMap.get(err.code))
+      winston.error(`Error: '${err.code} ${err.message}`)
+    }
   }
 }
 

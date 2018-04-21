@@ -39,7 +39,7 @@ describe('helpers', function() {
       const myUserInfo = { user_id: 'U_ID_2', user_im_id: 'U_IM_ID_2' };
       usernames = ['@dtoki', 'me'];
       assert.throws(
-        () => mapUsernameToUserInfo(usernames, usernameToUserInfo, myUserInfo),
+        () => mapUsernameToUserInfo(usernames, usernameToUserInfo, myUserInfo), 
         /the user @dtoki does not exist/
       );
     });
@@ -94,7 +94,7 @@ describe('helpers', function() {
       const timeString = '12:30am everyday';
       assert.throws(
         () => mapToTime(timeString, 'UTC'),
-        /please specify a date in the format/
+      
       );
     });
 
@@ -280,7 +280,7 @@ describe('helpers', function() {
       const period = 'once every blue moon at 4am';
       assert.throws(
         () => mapToFrequency(period),
-        /please specify when you want the meetings to happen eg. weekdays, everyday, Saturdays .../
+        /the user entered an incorrect frequency/
       );
     });
 
@@ -288,7 +288,7 @@ describe('helpers', function() {
       const period = 'never - I dont want to work';
       assert.throws(
         () => mapToFrequency(period),
-        /please specify when you want the meetings to happen eg. weekdays, everyday, Saturdays .../
+        /the user entered an incorrect frequency/
       );
     });
   });
@@ -363,14 +363,14 @@ describe('helpers', function() {
     it('should throw an error with an incorrectly formatted string', function() {
       assert.throws(
         () => mapPeriodtoDate('2 days and two weeks', moment),
-        /please specify the period in days\/months\/years e.g ...for 2 days/
+        /the user entered an incorrect period/
       );
     });
 
     it('should throw an error with an incorrectly formatted string', function() {
       assert.throws(
         () => mapPeriodtoDate('3 weekdays', moment),
-        /please specify the period in days\/months\/years e.g ...for 2 days/
+        /the user entered an incorrect period/
       );
     });
   });
