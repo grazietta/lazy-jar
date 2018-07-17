@@ -1,14 +1,14 @@
 # lazy-jar
 
-an slack app for scheduling remote stand-ups and track participation
+Lazy-jar is a slack app for scheduling remote stand-ups and track participation.
 
 ## commands
 
 ### definitions
 
-* `name` is a unique identifier for a stand-up
-* `when` identifies when and how often an event should happen such as "everyday at 6pm", or "every workday at 4:30pm"
-* `time range` identifies a period of time such as "1 week", or "3 days"
+* `name` is a unique identifier for a stand-up.
+* `when` identifies the time and frequency of an event. E.g "everyday at 6pm", "every workday at 4:30pm".
+* `time range` identifies a period of time such as "1 week", or "3 days".
 
 ### slash commands
 
@@ -33,7 +33,7 @@ an slack app for scheduling remote stand-ups and track participation
   Nofity the bot when the team is on a break
   * e.g. "halt artris"
 * `lj resume [name]`
-  Nofity the bot when you want to restart the stand-ups
+  Nofity the bot when to restart the stand-ups
   * e.g. "resume artris"
 * `/lj status`
   Display info about the active stand-ups and member participation
@@ -42,10 +42,10 @@ an slack app for scheduling remote stand-ups and track participation
   * At least 8h before the stand-up
   * e.g. "I will skip artris for 2 weeks"
 * `/lj start notifying [username] for [name]`
-  Notify the bot that the hacker will start attending a stand-up again after a 'stop' or 'skip' command has been sent
+  Notify the bot the hacker will rejoin a stand-up again after a 'stop' or 'skip' command has been sent
   * e.g. "start notifying @grace for artris"
 * `/lj stop notifying [username] for [name]`
-  The hacker is on a break and will not be counted as part of a stand-up until the 'start' command is sent
+  The hacker is on a break and will be dismissed from the stand-up count until the 'start' command is sent
 
   * e.g. "stop notifying @grace for artris"
 
